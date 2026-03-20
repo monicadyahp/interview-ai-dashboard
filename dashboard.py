@@ -81,8 +81,16 @@ with tab1:
 
     with col_b:
         df_counts = df_cleaned['Label'].value_counts().rename_axis('Emosi').reset_index(name='Jumlah')
-        fig = px.pie(df_counts, values='Jumlah', names='Emosi', hole=0.4, title="Komposisi Emosi Final")
-        st.plotly_chart(fig, use_container_width=True)
+        
+        # 1. Bar Chart (Untuk jumlah pasti)
+        fig_bar = px.bar(df_counts, x='Emosi', y='Jumlah', color='Emosi', 
+                         title="Jumlah Data per Kategori (Undersampling)")
+        st.plotly_chart(fig_bar, use_container_width=True)
+        
+        # 2. Pie Chart (Untuk persentase)
+        fig_pie = px.pie(df_counts, values='Jumlah', names='Emosi', hole=0.4, 
+                         title="Persentase Sebaran Emosi")
+        st.plotly_chart(fig_pie, use_container_width=True)
 
 # --- TAB 2: DATA DICTIONARY & FEATURE ENGINEERING ---
 with tab2:
