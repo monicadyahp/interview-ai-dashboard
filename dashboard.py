@@ -75,7 +75,7 @@ with tab1:
             display_df = df_cleaned.sample(10)
             st.write("🎲 Menampilkan 10 sampel acak dari seluruh data:")
         else:
-            display_df = df_cleaned[df_cleaned['Label'] == pilihan].sample(min(5, len(df_cleaned)))
+            display_df = df_cleaned[df_cleaned['Label'] == pilihan].sample(min(10, len(df_cleaned)))
             st.write(f"✅ Menampilkan sampel untuk emosi: `{pilihan}`")
             
         st.dataframe(display_df, use_container_width=True)
