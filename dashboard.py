@@ -72,8 +72,8 @@ with tab1:
         pilihan = st.selectbox("Pilih Kategori Emosi untuk Dilihat:", list_emosi)
         
         if pilihan == "Tampilkan Sampel Acak":
-            display_df = df_cleaned.sample(5)
-            st.write("🎲 Menampilkan 5 sampel acak dari seluruh data:")
+            display_df = df_cleaned.sample(10)
+            st.write("🎲 Menampilkan 10 sampel acak dari seluruh data:")
         else:
             display_df = df_cleaned[df_cleaned['Label'] == pilihan].sample(min(5, len(df_cleaned)))
             st.write(f"✅ Menampilkan sampel untuk emosi: `{pilihan}`")
