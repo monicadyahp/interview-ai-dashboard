@@ -135,7 +135,8 @@ with tab3:
     fig_box = px.box(df_plot, x='Grup', y='Skor', color='Grup', points="all")
     st.plotly_chart(fig_box, use_container_width=True)
     
-    st.metric("P-Value (T-Test)", f"{p_val:.6f}")
+    # Menampilkan dengan notasi ilmiah agar terlihat lebih presisi
+    st.metric("P-Value (T-Test)", f"{p_val:.2e}")
     st.success("Hasil Signifikan! AI membantu meningkatkan kepercayaan diri pengguna secara statistik.")
 
 # --- TAB 4: SAMPLE GALLERY ---
