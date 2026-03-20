@@ -54,22 +54,23 @@ with col2:
 
 st.divider()
 st.subheader("📸 Galeri Sampel Wajah Kandidat")
-st.write("Contoh gambar wajah dari dataset. (Catatan: Gambar mungkin tidak muncul di Cloud karena batasan ukuran upload GitHub)")
+st.write("Berikut adalah beberapa contoh wajah dari dataset yang digunakan untuk melatih AI.")
 
-# Ambil sampel data
-sample_data = df_cleaned.sample(min(4, len(df_cleaned)))
-cols = st.columns(4)
+SAMPLE_DIR = os.path.join(os.path.dirname(__file__), 'sample_images')
 
-for index, (i, row) in enumerate(sample_data.iterrows()):
-    with cols[index]:
-        img_path = row['File_Path']
-        
-        # CEK: Apakah file gambarnya benar-benar ada di folder?
-        if os.path.exists(img_path):
-            st.image(img_path, caption=f"Emosi: {row['Label'].upper()}", use_container_width=True)
-        else:
-            # Jika tidak ada (karena di-gitignore), tampilkan placeholder atau pesan
-            st.warning(f"File {row['Label']} tidak ditemukan di server.")
-            st.caption("Fungsionalitas lokal aman.")
+if os.path.exists(SAMPLE_DIR):
+    images = [f for f in os.listdir(SAMPLE_DIR) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    
+    if images:
+        cols = st.columns(min(4, len(images)))
+        for idx, img_name in enumerate(images[:4]):
+            with cols[idx]:
+                img_path = os.path.join(SAMPLE_DIR, img_name)
+                label_name = img_name.split('_')[0].upper()
+                st.image(img_path, caption=f"Emosi: {label_name}", use_container_width=True)
+    else:
+        st.warning("Folder 'sample_images' ada, tapi tidak ada gambar di dalamnya.")
+else:
+    st.error("Folder 'sample_images' tidak ditemukan. Pastikan folder ini sudah di-upload ke GitHub.")
 
 st.success("Tugas Data Science untuk persiapan data telah selesai!")
