@@ -63,21 +63,23 @@ with tab1:
     col_a, col_b = st.columns([1, 2])
     
     with col_a:
-        st.markdown("""
-        **Q1: Apakah sebaran data sudah seimbang?** *Analisis:* Data yang seimbang memastikan AI tidak bias (hanya pintar menebak satu emosi).
-        """)
+        st.write("**🔍 Eksplorasi Data:**")
         
-        # Fitur Interaktif Pencarian
-        search = st.text_input("Eksplorasi Emosi:", placeholder="Cari emosi...")
-        if search:
-            display_df = df_cleaned[df_cleaned['Label'].str.contains(search, case=False)]
-        else:
+        # Mengambil daftar emosi unik dari data
+        list_emosi = ["Tampilkan Sampel Acak"] + list(df_cleaned['Label'].unique())
+        
+        # Menggunakan selectbox agar dosen tinggal pilih
+        pilihan = st.selectbox("Pilih Kategori Emosi untuk Dilihat:", list_emosi)
+        
+        if pilihan == "Tampilkan Sampel Acak":
             display_df = df_cleaned.sample(5)
+            st.write("🎲 Menampilkan 5 sampel acak dari seluruh data:")
+        else:
+            display_df = df_cleaned[df_cleaned['Label'] == pilihan].sample(min(5, len(df_cleaned)))
+            st.write(f"✅ Menampilkan sampel untuk emosi: `{pilihan}`")
+            
         st.dataframe(display_df, use_container_width=True)
-        
-        st.markdown("""
-        **Q2: Mengapa Undersampling dilakukan?** *Analisis:* Kami mengurangi data 'Happy' agar jumlahnya setara dengan emosi lain, menghasilkan akurasi yang lebih jujur.
-        """)
+        st.info(f"Total Database: {len(df_cleaned)} gambar.")
 
     with col_b:
         df_counts = df_cleaned['Label'].value_counts().rename_axis('Emosi').reset_index(name='Jumlah')
