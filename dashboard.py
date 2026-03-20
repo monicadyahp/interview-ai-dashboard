@@ -107,7 +107,7 @@ with tab2:
         "Tipe": ["Target", "Feature", "Metadata"],
         "Transformasi": ["Label Encoding", "Reshaping & Normalization", "Path Formatting"]
     }
-    st.table(dict_data=dict_table)
+    st.table(dict_table)
 
 # --- TAB 3: A/B TESTING ---
 with tab3:
