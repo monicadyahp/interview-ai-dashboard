@@ -36,7 +36,7 @@ st.divider()
 @st.cache_data
 def load_data():
     CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-    CSV_PATH = os.path.join(CURRENT_DIR, 'fer2013_cleaned_data.csv')
+    CSV_PATH = os.path.join(CURRENT_DIR, 'fer2013_final_balanced.csv')
     if not os.path.exists(CSV_PATH):
         raise FileNotFoundError(f"File {CSV_PATH} tidak ditemukan.")
     return pd.read_csv(CSV_PATH)
